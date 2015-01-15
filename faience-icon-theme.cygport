@@ -1,0 +1,29 @@
+NAME="faience-icon-theme"
+VERSION=0.5
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="Faience icon theme"
+DESCRIPTION="An icon theme based on Faenza"
+HOMEPAGE="https://code.google.com/p/faience-theme"
+SRC_URI="http://raveit65.fedorapeople.org/Others/Source/${NAME}_${VERSION}.tar.xz"
+SRC_DIR="${NAME}_${VERSION}"
+
+ARCH=noarch
+
+CYGPORT_USE_UNSTABLE_API=1
+src_unpack_hook() {
+	for t in Faience*.tar.gz
+	do
+		tar zxf $t
+	done
+	find -mindepth 1 -type d -exec chmod 0755 '{}' +
+	find -mindepth 1 -type f -exec chmod 0644 '{}' +
+}
+
+src_compile() { :; }
+
+src_install() {
+	cd ${S}
+	dodir /usr/share/icons
+	cp -pr Faience*/ ${D}/usr/share/icons/
+}
